@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  handlers:
+      - name: reload_ssh
+        service:
+            name: ssh
+            state: reloaded
+  tasks:
+      - lineinfile:
+          dest: /etc/ssh/sshd_config
+          regexp: "^PasswordAuthentication"
+          line: "PasswordAuthentication yes"
+        notify: reload_ssh
+
+      - user:
+          name: "{{ prod_ssh_username }}"
+          password: "{{ prod_ssh_password_crypt }}"
+          groups: sudo

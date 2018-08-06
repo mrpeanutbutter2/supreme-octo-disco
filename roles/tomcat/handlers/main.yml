@@ -1,0 +1,10 @@
+---
+- name: clean_old_dir
+  file:
+    path: /var/lib/tomcat8/webapps/clickCount/
+    state: absent
+
+- name: restart_tomcat
+  service:
+    name: tomcat8
+    state: restarted

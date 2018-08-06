@@ -1,0 +1,15 @@
+---
+- name: Register redis server in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '\bredis\b'
+    line: "{{ redis_server }}\tredis"
+- name: Install Packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - openjdk-8-jre-headless
+    - tomcat8
+  notify:
+    - clean_old_dir
+    - restart_tomcat

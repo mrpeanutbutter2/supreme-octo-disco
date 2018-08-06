@@ -1,0 +1,38 @@
+- hosts: all
+  become: yes
+  vars:
+    jenkins_plugins:
+      - ansible
+      - git
+      - copyartifact
+  roles:
+    - geerlingguy.jenkins
+  tasks:
+    - package:
+        name: "{{ item }}"
+      with_items:
+        - ansible
+        - maven
+        - python-jenkins
+        - python-lxml
+        - sshpass
+    - jenkins_job: 
+        name: clickcount-build
+        url: http://localhost:8080
+        user: "{{ jenkins_admin_username }}"
+        password: "{{ jenkins_admin_password }}"
+        config: "{{ lookup('template', 'job-build.xml.j2') }}" 
+    - jenkins_job: 
+        name: clickcount-deploy-staging
+        url: http://localhost:8080
+        user: "{{ jenkins_admin_username }}"
+        password: "{{ jenkins_admin_password }}"
+        config: "{{ lookup('template', 'job-staging.xml.j2') }}" 
+    - jenkins_job: 
+        name: clickcount-deploy-prod
+        url: http://localhost:8080
+        user: "{{ jenkins_admin_username }}"
+        password: "{{ jenkins_admin_password }}"
+        config: "{{ lookup('template', 'job-prod.xml.j2') }}" 
+
+  

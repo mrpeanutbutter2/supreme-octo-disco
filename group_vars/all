@@ -1,0 +1,12 @@
+--- 
+
+jenkins_admin_username: admin
+jenkins_admin_password: admin2
+staging_ssh_username: ansible
+staging_ssh_password_crypt: $1$r97Bk4c.$7mGaVb39QCpviA4NjJ2Z21
+staging_ssh_password_clear: ansible
+prod_ssh_username: ansible
+prod_ssh_password_crypt: $1$r97Bk4c.$7mGaVb39QCpviA4NjJ2Z21
+prod_ssh_password_clear: ansible
+clickcount_repo: https://github.com/xebia-france/click-count.git
+deploy_repo: https://github.com/mrpeanutbutter2/supreme-octo-disco.git
